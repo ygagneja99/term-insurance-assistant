@@ -14,12 +14,12 @@ def jsonify(text: str):
         raise ValueError(f"Could not parse JSON from input: {e}")
 
 class ChatbotCore:
-    def __init__(self, api_key, base_url):
+    def __init__(self, azure_endpoint, azure_openai_key, azure_model_name):
         self.conversation_manager = ConversationManager()
         self.llm_client = LLMClient(
-            api_key=api_key,
-            base_url=base_url,
-            model_name="gpt-4o"
+            azure_endpoint=azure_endpoint,
+            azure_openai_key=azure_openai_key,
+            model_name=azure_model_name
         )
         self.insurance_agent_system = PromptBuilder(prompt_template=INSURANCE_AGENT_SYSTEM)
         self.insurance_agent_user = PromptBuilder(prompt_template=INSURANCE_AGENT_USER)

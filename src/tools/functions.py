@@ -358,7 +358,7 @@ def execute_function(function_name, function_args):
     conn = None
     try:
         # Try to connect to database and execute real function
-        conn = sqlite3.connect('/home/ubuntu/term_insurance.db')
+        conn = sqlite3.connect('data/term_insurance.db')
         
         # Map of function names to actual functions
         function_map = {

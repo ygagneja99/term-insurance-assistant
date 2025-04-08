@@ -11,14 +11,15 @@ def main():
     st.title("Demo")
 
     # Get API credentials from environment variables
-    api_key = os.environ["LLM_API_KEY"]
-    base_url = os.environ["LLM_BASE_URL"]
+    azure_endpoint = os.environ["LLM_AZURE_ENDPOINT"]
+    azure_openai_key = os.environ["LLM_AZURE_OPENAI_KEY"]
+    azure_model_name = os.environ["LLM_AZURE_MODEL_NAME"]
 
     # ---------------------------
     # 1) Initialize or retrieve from session
     # ---------------------------
     if "chatbot_core" not in st.session_state:
-        st.session_state.chatbot_core = ChatbotCore(api_key=api_key, base_url=base_url)
+        st.session_state.chatbot_core = ChatbotCore(azure_endpoint=azure_endpoint, azure_openai_key=azure_openai_key, azure_model_name=azure_model_name)
 
     if "messages" not in st.session_state:
         # This will hold the entire list of messages for the conversation
@@ -70,10 +71,13 @@ def main():
             with st.chat_message("assistant"):
                 st.write(response)
                 
-        if result.get("image_data"):
-            st.session_state.messages.append({"role": "assistant", "content": result["image_data"]})
+        if result.get("image_path"):
+            st.session_state.messages.append({"role": "assistant", "content": result["image_path"]})
             with st.chat_message("assistant"):
-                st.image(result["image_data"])
+                st.image(result["image_path"])
+                # Delete the image file after displaying it
+                if os.path.exists(result["image_path"]):
+                    os.remove(result["image_path"])
 
     # ---------------------------
     # 6) Show user info in the sidebar

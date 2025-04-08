@@ -24,9 +24,10 @@ WHATSAPP_PHONE_NUMBER_ID = os.environ["WHATSAPP_PHONE_NUMBER_ID"]
 WHATSAPP_API_VERSION = os.environ["WHATSAPP_API_VERSION"]
 
 # LLM API Configuration
-LLM_API_KEY = os.environ["LLM_API_KEY"]
-LLM_BASE_URL = os.environ["LLM_BASE_URL"]
-
+LLM_AZURE_ENDPOINT = os.environ["LLM_AZURE_ENDPOINT"]
+LLM_AZURE_OPENAI_KEY = os.environ["LLM_AZURE_OPENAI_KEY"]
+LLM_AZURE_MODEL_NAME = os.environ["LLM_AZURE_MODEL_NAME"]
+STT_AZURE_MODEL_NAME = os.environ["STT_AZURE_MODEL_NAME"]
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -35,9 +36,9 @@ active_sessions = {}
 
 # Initialize STT client globally
 stt_client = LLMClient(
-    api_key=LLM_API_KEY,
-    base_url=LLM_BASE_URL,
-    model_name="whisper-1"
+    azure_endpoint=LLM_AZURE_ENDPOINT,
+    azure_openai_key=LLM_AZURE_OPENAI_KEY,
+    model_name=STT_AZURE_MODEL_NAME
 )
 
 # ---------- HELPER FUNCTIONS ----------
@@ -54,7 +55,7 @@ def get_or_create_session(phone_number):
     """
     if phone_number not in active_sessions:
         logger.info(f"Creating new session for {phone_number}")
-        active_sessions[phone_number] = ChatbotCore(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
+        active_sessions[phone_number] = ChatbotCore(azure_endpoint=LLM_AZURE_ENDPOINT, azure_openai_key=LLM_AZURE_OPENAI_KEY, azure_model_name=LLM_AZURE_MODEL_NAME)
     return active_sessions[phone_number]
 
 def send_whatsapp_message(phone_number, message):

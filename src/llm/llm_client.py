@@ -1,6 +1,5 @@
-import openai
-import json
 import io
+from openai import AzureOpenAI
 
 class LLMClient:
     """
@@ -11,11 +10,13 @@ class LLMClient:
     Now accepts 'messages' (list of {role, content}) and optional 'functions' 
     for function calling.
     """
-    def __init__(self, api_key: str, base_url: str, model_name: str):
+    def __init__(self, azure_endpoint: str, azure_openai_key: str, model_name: str):
         # Create a specialized client referencing RabbitHole's endpoint
-        self.client = openai.OpenAI(
-            api_key=api_key,
-            base_url=base_url
+        self.client = AzureOpenAI(
+            api_version='2023-09-01-preview',
+            azure_endpoint=azure_endpoint,
+            api_key=azure_openai_key,
+            timeout=60
         )
         self.model_name = model_name
 

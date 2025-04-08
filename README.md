@@ -40,8 +40,6 @@ term-insurance-assistant/
 │   └── tools/             # Tool functions
 │       └── functions.py
 ├── data/                  # Data files and database
-│   ├── insurance.db      # SQLite database
-│   ├── schema.sql        # Database schema
 │   └── generate_mock_data.py  # Script to generate test data
 ├── streamlit_app.py       # Web interface
 ├── whatsapp_webhook.py    # WhatsApp webhook server
@@ -72,9 +70,11 @@ pip install -e .
 
 4. Create a `keys.env` file with your API keys:
 ```env
-# OpenAI Configuration
-LLM_API_KEY=your_api_key
-LLM_BASE_URL=your_base_url
+# LLM API Configuration
+LLM_AZURE_ENDPOINT=your_azure_endpoint
+LLM_AZURE_OPENAI_KEY=your_azure_openai_key
+LLM_AZURE_MODEL_NAME=azure_llm_name
+STT_AZURE_MODEL_NAME=azure_stt_name
 
 # WhatsApp Business API Configuration
 WHATSAPP_TOKEN=your_whatsapp_token
@@ -85,12 +85,6 @@ WHATSAPP_API_VERSION=v17.0
 
 5. Set up the SQLite database:
 ```bash
-# Create the database file
-sqlite3 data/insurance.db
-
-# Initialize database schema
-sqlite3 data/insurance.db < data/schema.sql
-
 # Generate and insert mock data
 python data/generate_mock_data.py
 ```

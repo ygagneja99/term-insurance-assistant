@@ -442,7 +442,7 @@ def insert_data_into_db(conn, insurers_data, plans_data, premiums_data):
     print("✅ All mock data inserted into database successfully.")
     
 # Step 1: Open or create your SQLite DB
-conn = sqlite3.connect("/home/ubuntu/term_insurance.db")
+conn = sqlite3.connect("data/term_insurance.db")
 
 # Step 2: (Optional) Create tables first if not already done
 create_tables(conn)
