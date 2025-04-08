@@ -24,84 +24,121 @@ A sophisticated chatbot-powered assistant designed to help users navigate and un
 - **SQLite**: Database for insurance plans and metrics
 - **Pandas & Matplotlib**: Data processing and visualization
 
+## Project Structure
+
+```
+term-insurance-assistant/
+├── src/
+│   ├── chat/               # Chat-related functionality
+│   │   ├── chatbot_core.py
+│   │   └── conversation_manager.py
+│   ├── llm/                # LLM-related functionality
+│   │   └── llm_client.py
+│   ├── prompts/            # Prompt-related files
+│   │   ├── prompts.py
+│   │   └── prompt_builder.py
+│   └── tools/             # Tool functions
+│       └── functions.py
+├── data/                  # Data files and database
+│   ├── insurance.db      # SQLite database
+│   ├── schema.sql        # Database schema
+│   └── generate_mock_data.py  # Script to generate test data
+├── streamlit_app.py       # Web interface
+├── whatsapp_webhook.py    # WhatsApp webhook server
+├── keys.env              # Environment variables (not in version control)
+├── setup.py             # Package setup file
+├── requirements.txt     # Project dependencies
+└── README.md           # Project documentation
+```
+
 ## Setup
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Create a `keys.env` file with the following variables:
-   ```
-   # OpenAI Configuration
-   LLM_API_KEY=your_openai_api_key
-   LLM_BASE_URL=your_openai_api_base_url
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/term-insurance-assistant.git
+cd term-insurance-assistant
+```
 
-   # WhatsApp Business API Configuration
-   WHATSAPP_TOKEN=your_whatsapp_token
-   WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id
-   VERIFY_TOKEN=your_webhook_verify_token
-   ```
+2. Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-4. Set up the SQLite database:
-   ```bash
-   # Create the database file
-   sqlite3 data/insurance.db
+3. Install the package in development mode:
+```bash
+pip install -e .
+```
 
-   # Initialize database schema
-   sqlite3 data/insurance.db < data/schema.sql
+4. Create a `keys.env` file with your API keys:
+```env
+# OpenAI Configuration
+LLM_API_KEY=your_api_key
+LLM_BASE_URL=your_base_url
 
-   # Generate and insert mock data
-   python data/generate_mock_data.py
-   ```
+# WhatsApp Business API Configuration
+WHATSAPP_TOKEN=your_whatsapp_token
+WHATSAPP_VERIFY_TOKEN=your_verify_token
+WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id
+WHATSAPP_API_VERSION=v17.0
+```
 
-   The database will be populated with:
-   - Mock insurance providers and their metrics
-   - Various term insurance plans
-   - Premium rates for different age groups and terms
-   - Sample claim settlement ratios and complaint volumes
+5. Set up the SQLite database:
+```bash
+# Create the database file
+sqlite3 data/insurance.db
+
+# Initialize database schema
+sqlite3 data/insurance.db < data/schema.sql
+
+# Generate and insert mock data
+python data/generate_mock_data.py
+```
+
+The database will be populated with:
+- Mock insurance providers and their metrics
+- Various term insurance plans
+- Premium rates for different age groups and terms
+- Sample claim settlement ratios and complaint volumes
 
 ## Running the Application
 
-### Streamlit Web Interface
+### Web Interface
 ```bash
 streamlit run streamlit_app.py
 ```
 
-### WhatsApp Webhook Server
+### WhatsApp Webhook
 ```bash
-python whatsapp_webhook.py
+flask run
 ```
 
 Note: Make sure you have configured your WhatsApp Business API webhook URL in the Meta developer portal to point to your server's endpoint.
 
 ## Core Components
 
-### 1. Chatbot Core (`chatbot_core.py`)
+### 1. Chat Module (`src/chat/`)
 - Main logic for processing user messages
-- Integration with LLM (Language Learning Model)
+- Integration with LLM
 - Tool execution and response management
+- Conversation state management
 
-### 2. LLM Client (`llm_client.py`)
+### 2. LLM Module (`src/llm/`)
 - Handles communication with OpenAI's GPT-4
 - Manages API calls and responses
 
-### 3. Conversation Manager (`conversation_manager.py`)
-- Maintains chat history
-- Tracks user information state
-- Manages conversation context
+### 3. Prompts Module (`src/prompts/`)
+- System and user prompt templates
+- Function schemas for the LLM
+- Prompt building utilities
 
-### 4. Functions (`functions.py`)
+### 4. Tools Module (`src/tools/`)
 Key functionalities include:
 - Basic plan and premium lookup
 - Recommended plans based on priority factors
 - Insurer metrics comparison
 - Plan details retrieval
 - Visualization generation
-
-### 5. Prompts (`prompts.py`)
-- System and user prompt templates
-- Function schemas for the LLM
 
 ## Database Schema
 
@@ -143,7 +180,7 @@ The SQLite database includes tables for:
 
 ## License
 
-This project is proprietary and confidential. All rights reserved. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the terms of the license included with this repository.
 
 ## Support
 

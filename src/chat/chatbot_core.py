@@ -1,10 +1,10 @@
 import json
 import re
-from conversation_manager import ConversationManager
-from llm_client import LLMClient
-from prompt_builder import PromptBuilder
-from prompts import INSURANCE_AGENT_SYSTEM, INSURANCE_AGENT_USER, FUNCTION_SCHEMAS
-from functions import execute_function
+from src.chat.conversation_manager import ConversationManager
+from src.llm.llm_client import LLMClient
+from src.prompts.prompt_builder import PromptBuilder
+from src.prompts.prompts import INSURANCE_AGENT_SYSTEM, INSURANCE_AGENT_USER, FUNCTION_SCHEMAS
+from src.tools.functions import execute_function
 
 def jsonify(text: str):
     cleaned_text = re.sub(r"```json|```", "", text, flags=re.IGNORECASE).strip()

@@ -1,5 +1,5 @@
 import streamlit as st
-from chatbot_core import ChatbotCore
+from src.chat.chatbot_core import ChatbotCore
 import os
 from dotenv import load_dotenv
 import sys

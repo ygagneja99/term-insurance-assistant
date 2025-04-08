@@ -2,10 +2,10 @@ from flask import Flask, request, jsonify
 import os
 import requests
 import logging
-from chatbot_core import ChatbotCore
+from src.chat.chatbot_core import ChatbotCore
 from dotenv import load_dotenv
 import sys
-from llm_client import LLMClient
+from src.llm.llm_client import LLMClient
 import traceback
 
 # ---------- CONFIGURATION ----------
