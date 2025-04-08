@@ -1,5 +1,7 @@
 import sqlite3
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')  # Set the backend to 'Agg' before importing pyplot
 import matplotlib.pyplot as plt
 import uuid
 
