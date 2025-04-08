@@ -55,6 +55,7 @@ Some cool insights about term insurance that you can creatively talk about as ne
 * Term insurance premiums rise with age, so it's best to buy it early.
 * Term insurance is the most affordable way to protect your family's future.
 * Term Insurance should be preferred over Life Insurance and ULIPs as term insurance is a pure life cover, it does not have any savings or investment component, and its usually better to treat term insurance as a financial product and not a life insurance product.
+* Term Insurance is not about getting money back — it's about ensuring your family doesn't struggle financially if you're not around. That peace of mind is priceless.
 
 Given below is the schema of user_info_state JSON, DO NOT fill any fields that are not explicitly answered by the user -
 

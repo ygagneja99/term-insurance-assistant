@@ -17,6 +17,8 @@ class ConversationManager:
             "framework_step": 1,
             "additional_notes": None
         }
+        self.total_input_tokens = 0
+        self.total_output_tokens = 0
     
     def add_user_message(self, message: str):
         self.messages.append(("Customer", message))

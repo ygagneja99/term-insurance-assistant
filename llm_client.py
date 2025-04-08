@@ -46,7 +46,7 @@ class LLMClient:
 
         # Typically, you'd also handle the case where the LLM returns a function_call 
         # instead of direct content. For now, we assume it returns normal text.
-        return response.choices[0].message
+        return response.choices[0].message, response.usage
      
     def call_stt(self, audio_data, media_id) -> str:
         """

@@ -55,7 +55,9 @@ class ChatbotCore:
         ]
         
         # Call the LLM
-        llm_response = self.llm_client.call_llm(messages=messages_for_llm, tools=FUNCTION_SCHEMAS)
+        llm_response, usage = self.llm_client.call_llm(messages=messages_for_llm, tools=FUNCTION_SCHEMAS)
+        self.conversation_manager.total_input_tokens += usage.prompt_tokens
+        self.conversation_manager.total_output_tokens += usage.completion_tokens
         # Process the response
         assistant_text_content = ""
         debug_info = {
@@ -92,7 +94,9 @@ class ChatbotCore:
                     })
             
             # Process results with the LLM
-            follow_up_response = self.llm_client.call_llm(messages=messages_for_llm, tools=[])
+            follow_up_response, follow_up_usage = self.llm_client.call_llm(messages=messages_for_llm, tools=[])
+            self.conversation_manager.total_input_tokens += follow_up_usage.prompt_tokens
+            self.conversation_manager.total_output_tokens += follow_up_usage.completion_tokens
             assistant_text_content = follow_up_response.content if follow_up_response.content else ""
         else:
             # Regular text response
